@@ -1,4 +1,4 @@
-const C='fadja-v3',A=['./','index.html','manifest.webmanifest','content-admin.js'];
+const C='fadja-v4',A=['./','index.html','manifest.webmanifest','content-admin.js'];
 self.addEventListener('install',e=>e.waitUntil(caches.open(C).then(c=>c.addAll(A)).then(()=>self.skipWaiting())));
 self.addEventListener('activate',e=>e.waitUntil(caches.keys().then(k=>Promise.all(k.filter(x=>x!=C).map(x=>caches.delete(x)))).then(()=>self.clients.claim())));
 self.addEventListener('fetch',e=>{if(e.request.method!=='GET'||new URL(e.request.url).origin!==location.origin)return;e.respondWith(fetch(e.request).then(async r=>{if((e.request.mode==='navigate'||e.request.url.endsWith('/index.html'))&&r.ok){const t=await r.text();if(t.includes('</body>')&&!t.includes('content-admin.js')){const u=new URL('content-admin.js',e.request.url).href;return new Response(t.replace('</body>','<script src="'+u+'"></script></body>'),{status:r.status,statusText:r.statusText,headers:r.headers})}}const c=r.clone();caches.open(C).then(x=>x.put(e.request,c));return r}).catch(()=>caches.match(e.request).then(r=>r||caches.match('index.html'))))});
