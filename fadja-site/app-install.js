@@ -24,5 +24,5 @@ function iosHelp(){const m=modal(),s=m.querySelector('#fadja-install-status');m.
 function open(){modal().classList.add('on');}
 function bind(){document.querySelectorAll('#inst,[data-install-app],a,button').forEach(el=>{if(el.dataset.fadjaInstallBound)return;const t=(el.textContent||'').toLowerCase();if(el.id==='inst'||el.hasAttribute('data-install-app')||t.includes("installer l'app")||t.includes("installer l’application")||t.includes("télécharger l’application")){el.dataset.fadjaInstallBound='1';el.addEventListener('click',e=>{e.preventDefault();if(el.hasAttribute('data-fadja-ios'))iosHelp();else open()},{capture:true})}})}
 bind();new MutationObserver(bind).observe(document.body,{childList:true,subtree:true});window.addEventListener('fadja-install-ready',bind);
-if('serviceWorker' in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('sw.js',{updateViaCache:'none'}).then(r=>{r.update();setInterval(()=>r.update(),900000);if(r.waiting)r.waiting.postMessage({type:'SKIP_WAITING'})}).catch(()=>{});navigator.serviceWorker?.addEventListener('controllerchange',()=>{if(!sessionStorage.getItem('fadja_sw_refreshed')){sessionStorage.setItem('fadja_sw_refreshed','1');location.reload()}});
+if('serviceWorker' in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('sw.js').catch(()=>{});
 })();
