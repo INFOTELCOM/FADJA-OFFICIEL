@@ -15,6 +15,6 @@ async function savePage(){const title=document.getElementById('pTitle').value.tr
 async function saveMenu(){const label=document.getElementById('mLabel').value.trim(),href=document.getElementById('mHref').value.trim();if(!label||!href)return alert('Nom et lien requis.');try{await api('/rest/v1/site_menu',{method:'POST',headers:{Prefer:'return=minimal'},body:JSON.stringify({label,href,target:document.getElementById('mTarget').value,sort_order:+document.getElementById('mOrder').value||100,visible:true})});openCMS();setTimeout(loadPublic,100)}catch(e){alert(e.message)}}
 window.FADJACMS={toggleContent:async(id,v)=>{await api('/rest/v1/site_content?id=eq.'+id,{method:'PATCH',headers:{Prefer:'return=minimal'},body:JSON.stringify({published:v})});openCMS();loadPublic()},delContent:async id=>{if(confirm('Supprimer ce contenu ?')){await api('/rest/v1/site_content?id=eq.'+id,{method:'DELETE'});openCMS();loadPublic()}},toggleMenu:async(id,v)=>{await api('/rest/v1/site_menu?id=eq.'+id,{method:'PATCH',headers:{Prefer:'return=minimal'},body:JSON.stringify({visible:v})});openCMS();loadPublic()},delMenu:async id=>{if(confirm('Supprimer ce menu ?')){await api('/rest/v1/site_menu?id=eq.'+id,{method:'DELETE'});openCMS();loadPublic()}}};
 async function saveMenuAndReload(){return saveMenu()}
-async function boot(){loadPublic();if(await isAdmin())adminButton()}
+async function boot(){loadPublic();if(await isAdmin())adminButton();setInterval(async()=>{if(await isAdmin())adminButton()},5000)}
 boot();
 })();
