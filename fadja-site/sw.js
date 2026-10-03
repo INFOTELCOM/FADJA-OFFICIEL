@@ -1,4 +1,13 @@
-const C='fadja-v11-assets',A=['./','index.html?v=20261003-2','manifest.webmanifest','sw.js','app-install.js?v=20261003-2','espace-administrateur.html','administration.html','admin-login.html','content-admin.js','certificats.html','certificats-admin.js','config.js','assets/logo.jpg?v=20261003-2','assets/g1.jpg?v=20261003-2','assets/g2.jpg?v=20261003-2','assets/g3.jpg?v=20261003-2','assets/g4.jpg?v=20261003-2','assets/f1.jpg?v=20261003-2','assets/m1.jpg?v=20261003-2','assets/itc.jpg?v=20261003-2','assets/py.jpg?v=20261003-2','assets/dep.jpg?v=20261003-2','assets/bur.jpg?v=20261003-2','assets/en.jpg?v=20261003-2','assets/emb.jpg?v=20261003-2','assets/vis.jpg?v=20261003-2','assets/auto.jpg?v=20261003-2','assets/fadja-services.jpg?v=20261003-2','assets/formation-makeup.jpg?v=20261003-2','icons/icon-192.png','icons/icon-512.png'];
-self.addEventListener('install',e=>e.waitUntil(caches.open(C).then(c=>c.addAll(A)).then(()=>self.skipWaiting())));
-self.addEventListener('activate',e=>e.waitUntil(caches.keys().then(k=>Promise.all(k.filter(x=>x!==C).map(x=>caches.delete(x)))).then(()=>self.clients.claim())));
-self.addEventListener('fetch',e=>{if(e.request.method!=='GET'||new URL(e.request.url).origin!==location.origin)return;e.respondWith(fetch(e.request).then(async r=>{if(e.request.mode==='navigate'&&r.ok){const t=await r.clone().text();if(t.includes('</body>')){const u=new URL('app-install.js?v=20261003-2',e.request.url).href;let x=t;if(!x.includes('app-install.js?v=20261003-2'))x=x.replace('</body>','<script src="'+u+'"></script></body>');return new Response(x,{status:r.status,statusText:r.statusText,headers:r.headers})}}const c=r.clone();caches.open(C).then(x=>x.put(e.request,c));return r}).catch(()=>caches.match(e.request).then(r=>r||caches.match('index.html?v=20261003-2'))))});
+const CACHE='fadja-v20261003-3';
+const CORE=['./','./index.html','./manifest.webmanifest','./config.js','./app-install.js'];
+self.addEventListener('install',event=>{self.skipWaiting();event.waitUntil(caches.open(CACHE).then(c=>c.addAll(CORE).catch(()=>{})))});
+self.addEventListener('activate',event=>{event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim()))});
+self.addEventListener('fetch',event=>{
+ const req=event.request,url=new URL(req.url);
+ if(req.method!=='GET'||url.origin!==location.origin)return;
+ if(req.mode==='navigate'){
+   event.respondWith(fetch(req,{cache:'no-store'}).then(res=>{const copy=res.clone();caches.open(CACHE).then(c=>c.put('./index.html',copy));return res}).catch(()=>caches.match('./index.html')));
+   return;
+ }
+ event.respondWith(caches.match(req).then(hit=>hit||fetch(req).then(res=>{if(res.ok)caches.open(CACHE).then(c=>c.put(req,res.clone()));return res}).catch(()=>hit)));
+});

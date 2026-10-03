@@ -97,7 +97,7 @@ aside{position:static;height:auto;flex-direction:row;flex-wrap:wrap;align-items:
 .mq img{height:62px;width:auto}.mq small{display:block;font-weight:500;color:#5B6684;font-size:12px}
 #lb{position:fixed;inset:0;background:#050b20ee;display:none;place-items:center;z-index:30;padding:20px;cursor:zoom-out}#lb.on{display:grid}#lb img{max-height:92vh;max-width:94vw;border-radius:14px}
 @media(max-width:820px){.bento{grid-template-columns:1fr 1fr;grid-auto-rows:150px}.pc img{height:340px}}
-@media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}.mq .tr,.blob,.btn.y{animation:none}.hero *{animation:none!important}}
+@media(prefers-reduced-motion:reduce){}
 
 textarea{width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);font:400 15px Sora,sans-serif;min-height:110px;resize:vertical}
 #pg{position:fixed;top:0;left:0;height:3px;width:0;background:var(--sun);z-index:40}
@@ -121,9 +121,9 @@ details{border:1px solid var(--line);border-radius:14px;padding:14px 18px;margin
 .hero:before{content:"";position:absolute;inset:0;background:radial-gradient(520px circle at var(--mx,70%) var(--my,30%),#3A66F040,transparent 60%);pointer-events:none}
 #ld{position:fixed;inset:0;background:#0A1A4F;display:grid;place-items:center;z-index:60;transition:opacity .7s .4s,visibility .7s .4s}#ld.off{opacity:0;visibility:hidden}#ld img{height:96px;border-radius:14px;background:#fff;padding:6px;animation:pl2 .9s ease-in-out infinite alternate}@keyframes pl2{to{transform:scale(1.12)}}
 .rib{background:var(--sun);color:#0A1A4F;overflow:hidden;white-space:nowrap;padding:14px 0;font-weight:800;font-size:18px}.rib div{display:inline-block;animation:rb 30s linear infinite}.rib span{margin:0 22px}@keyframes rb{from{transform:translateX(-50%)}to{transform:translateX(0)}}
-@media(prefers-reduced-motion:reduce){.rib div,#ld img{animation:none}}
+@media(prefers-reduced-motion:reduce){}
 </style></head><body>
-<div id="ld"><img data-i="logo" alt=""></div><script>(function(){function show(){var x=document.getElementById('ld');if(x){x.classList.add('off');x.setAttribute('aria-hidden','true');}}window.addEventListener('DOMContentLoaded',show,{once:true});setTimeout(show,1400);})();</script><div id="site">
+<div id="ld"><img data-i="logo" alt=""></div><script>(function(){function show(){var x=document.getElementById('ld');if(x){x.classList.add('off');x.setAttribute('aria-hidden','true');}}window.addEventListener('load',function(){setTimeout(show,450);},{once:true});setTimeout(show,2600);})();</script><div id="site">
 <header><div class="w nav"><a href="#top"><img data-i="logo" alt="FADJA"></a>
 <button class="ar bg" id="bg" aria-label="Menu" style="background:var(--soft);color:var(--ink)">☰</button><nav id="nv"><a href="#formations">Formations</a><a href="#apropos">À propos</a><a href="#partenaires">Partenaires</a><a href="#contact">Contact</a><a href="#devenir-membre">Devenir membre</a><a class="btn o" href="#installation" id="inst">Installer / télécharger l'app</a><button class="ar" id="th" aria-label="Changer le thème" style="background:var(--soft);color:var(--ink)">◐</button></nav></div></header>
 <div class="hero" id="top"><i class="blob" style="width:380px;height:380px;background:#1E4FD8;left:-80px;top:-60px"></i><i class="blob" style="width:300px;height:300px;background:#FFC72C;right:-60px;bottom:-80px;opacity:.25;animation-delay:-5s"></i><div class="w"><div>
@@ -151,7 +151,7 @@ details{border:1px solid var(--line);border-radius:14px;padding:14px 18px;margin
 <div class="bt"><a class="btn" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Silikin+Village+Kinshasa+Gombe">Ouvrir dans Maps</a><a class="btn o" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination=Silikin+Village+Kinshasa+Gombe">Itinéraire GPS</a></div></div>
 <div class="info"><div><h3>Adresse</h3><p>Colonel Modinba N°63, réf. Show buzz – Saut de mouton, Socimat, Silikin Village, Kinshasa Gombe</p></div><div><h3>WhatsApp</h3><p><a href="https://wa.me/242067702024">+242 067 702 024</a></p></div><div><h3>Téléphone</h3><p>+243 840 001 865<br>+243 840 001 866</p></div><div><h3>E-mail</h3><p><a href="mailto:officielfadja@gmail.com">officielfadja@gmail.com</a></p></div></div></div>
 <div class="cform"><h3 style="margin:0 0 4px">Écrivez-nous</h3><label for="f_n">Nom complet</label><input id="f_n" autocomplete="name"><label for="f_t">Téléphone</label><input id="f_t" type="tel" autocomplete="tel"><label for="f_f">Formation concernée</label><select id="f_f"></select><label for="f_m">Message</label><textarea id="f_m"></textarea><p id="fe" style="color:#D33;font-size:13px;min-height:20px;margin:6px 0"></p><div class="bt"><button type="button" class="btn" style="background:#128C4A" onclick="sendWA()">Envoyer sur WhatsApp</button><button type="button" class="btn o" onclick="sendMail()">Envoyer par e-mail</button><button type="button" class="btn" id="sdb" style="display:none" onclick="sendDB()">Envoyer au centre</button></div></div></div></div></section>
-<section id="nos-activites" class="soft"><div class="w"><div class="hd"><div><h2>Nos activités</h2><p class="lead">FADJA développe également des activités de services, de formation et de partenariats professionnels.</p></div></div><div class="two" style="align-items:stretch"><article class="panel" style="margin:0;overflow:hidden;padding:0"><img src="assets/fadja-services.jpg?v=20261003-2" alt="FADJA — services et accompagnement" style="display:block;width:100%;height:auto;max-height:520px;object-fit:cover"><div style="padding:22px"><h3 style="margin-top:0">Services & accompagnement</h3><p>Formations professionnelles, événementiel, immobilier, conseil et accompagnement : FADJA propose des solutions adaptées aux besoins de ses partenaires.</p><a class="btn o" href="#contact">Nous contacter</a></div></article><article class="panel" style="margin:0;overflow:hidden;padding:0"><img src="assets/formation-makeup.jpg?v=20261003-2" alt="Formation professionnelle en partenariat avec FADJA" style="display:block;width:100%;height:auto;max-height:520px;object-fit:cover"><div style="padding:22px"><h3 style="margin-top:0">Formations & partenariats</h3><p>FADJA accompagne aussi des initiatives de formation spécialisées, notamment à travers des partenariats avec des structures et académies.</p><a class="btn o" href="#formations">Voir les formations</a></div></article></div></div></section>
+<section id="nos-activites" class="soft"><div class="w"><div class="hd"><div><h2>Nos activités</h2><p class="lead">FADJA développe également des activités de services, de formation et de partenariats professionnels.</p></div></div><div class="two" style="align-items:stretch"><article class="panel" style="margin:0;overflow:hidden;padding:0"><img src="assets/fadja-services.jpg?v=20261003-3" alt="FADJA — services et accompagnement" style="display:block;width:100%;height:auto;max-height:520px;object-fit:cover"><div style="padding:22px"><h3 style="margin-top:0">Services & accompagnement</h3><p>Formations professionnelles, événementiel, immobilier, conseil et accompagnement : FADJA propose des solutions adaptées aux besoins de ses partenaires.</p><a class="btn o" href="#contact">Nous contacter</a></div></article><article class="panel" style="margin:0;overflow:hidden;padding:0"><img src="assets/formation-makeup.jpg?v=20261003-3" alt="Formation professionnelle en partenariat avec FADJA" style="display:block;width:100%;height:auto;max-height:520px;object-fit:cover"><div style="padding:22px"><h3 style="margin-top:0">Formations & partenariats</h3><p>FADJA accompagne aussi des initiatives de formation spécialisées, notamment à travers des partenariats avec des structures et académies.</p><a class="btn o" href="#formations">Voir les formations</a></div></article></div></div></section>
 <section id="application-fadja" class="soft"><div class="w"><div class="hd"><div><h2>Application FADJA</h2><p class="lead">Installez FADJA sur votre téléphone ou votre ordinateur. La version web progressive devient une application installée et s’ouvre ensuite directement comme FADJA.</p></div></div><div class="three" style="align-items:stretch"><article class="panel" style="margin:0"><h3 style="margin-top:0">Android</h3><p>Chrome et les navigateurs compatibles permettent l’installation directe.</p><button class="btn" type="button" data-install-app>Installer sur Android</button></article><article class="panel" style="margin:0"><h3 style="margin-top:0">iPhone / iPad</h3><p>Dans Safari, ajoutez FADJA à l’écran d’accueil pour l’utiliser comme une application.</p><button class="btn o" type="button" data-install-app>Ajouter sur iPhone / iPad</button></article><article class="panel" style="margin:0"><h3 style="margin-top:0">Ordinateur</h3><p>Chrome et Edge peuvent installer FADJA comme une application de bureau.</p><button class="btn y" type="button" data-install-app>Installer sur ordinateur</button></article></div><p style="margin:18px 0 0;color:var(--mut);font-size:13px">L’installation multiplateforme est active. Les vrais paquets natifs APK, App Store et installateurs Windows/macOS/Linux restent des builds séparés à produire et signer ; je ne présente pas un simple lien web comme un faux APK ou un faux installateur.</p></div></section>
 <section id="installation" class="soft"><div class="w"><h2>Installer / télécharger l’application FADJA</h2><p class="lead">FADJA est disponible immédiatement comme application web installable sur Android, iPhone/iPad et ordinateur.</p><div class="grid">
 <div class="card"><div><h3>Android</h3><p>Installation directe depuis Chrome ou un navigateur compatible.</p><button class="btn" type="button" data-fadja-install>Installer sur Android</button><small>Version installée : PWA FADJA.</small></div></div>
@@ -170,21 +170,21 @@ details{border:1px solid var(--line);border-radius:14px;padding:14px 18px;margin
 <script src="config.js"></script>
 <script>
 const IMG={
-logo:'assets/logo.jpg?v=20261003-2',
-g1:'assets/g1.jpg?v=20261003-2',
-g2:'assets/g2.jpg?v=20261003-2',
-g3:'assets/g3.jpg?v=20261003-2',
-f1:'assets/f1.jpg?v=20261003-2',
-m1:'assets/m1.jpg?v=20261003-2',
-g4:'assets/g4.jpg?v=20261003-2',
-itc:'assets/itc.jpg?v=20261003-2',
-py:'assets/py.jpg?v=20261003-2',
-dep:'assets/dep.jpg?v=20261003-2',
-bur:'assets/bur.jpg?v=20261003-2',
-en:'assets/en.jpg?v=20261003-2',
-emb:'assets/emb.jpg?v=20261003-2',
-vis:'assets/vis.jpg?v=20261003-2',
-auto:'assets/auto.jpg?v=20261003-2'
+logo:'assets/logo.jpg?v=20261003-3',
+g1:'assets/g1.jpg?v=20261003-3',
+g2:'assets/g2.jpg?v=20261003-3',
+g3:'assets/g3.jpg?v=20261003-3',
+f1:'assets/f1.jpg?v=20261003-3',
+m1:'assets/m1.jpg?v=20261003-3',
+g4:'assets/g4.jpg?v=20261003-3',
+itc:'assets/itc.jpg?v=20261003-3',
+py:'assets/py.jpg?v=20261003-3',
+dep:'assets/dep.jpg?v=20261003-3',
+bur:'assets/bur.jpg?v=20261003-3',
+en:'assets/en.jpg?v=20261003-3',
+emb:'assets/emb.jpg?v=20261003-3',
+vis:'assets/vis.jpg?v=20261003-3',
+auto:'assets/auto.jpg?v=20261003-3'
 };
 
 const F=[
@@ -245,7 +245,7 @@ tl(tl1);
 rb.innerHTML=['Python','Arduino & ESP32','Vision par ordinateur','Anglais','Bureautique','Auto-école','Attestation officielle','100 % pratique'].map(w=>`<span>${w}</span><span>◆</span>`).join('').repeat(4);
 const hr=document.querySelector('.hero');hr.onmousemove=e=>{const r=hr.getBoundingClientRect();hr.style.setProperty('--mx',(e.clientX-r.left)+'px');hr.style.setProperty('--my',(e.clientY-r.top)+'px');const c=car.getBoundingClientRect(),x=(e.clientX-c.left)/c.width-.5,y=(e.clientY-c.top)/c.height-.5;car.style.transform=`perspective(1000px) rotateY(${x*6}deg) rotateX(${-y*6}deg)`};hr.onmouseleave=()=>car.style.transform='';
 addEventListener('load',()=>setTimeout(()=>ld.classList.add('off'),500));setTimeout(()=>ld.classList.add('off'),2600);
-if('serviceWorker' in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('sw.js').catch(()=>{});
+if('serviceWorker' in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('sw.js?v=20261003-3',{updateViaCache:'none'}).catch(()=>{});
 /* PWA / installation multiplateforme */
 let dp;
 addEventListener('beforeinstallprompt',e=>{e.preventDefault();dp=e});
