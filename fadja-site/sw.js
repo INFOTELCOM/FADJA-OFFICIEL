@@ -1,4 +1,5 @@
-const C='fadja-v6',A=['./','index.html','manifest.webmanifest','sw.js','app-install.js','espace-administrateur.html','administration.html','content-admin.js','config.js'];
+const C='fadja-v8',A=['./','index.html','manifest.webmanifest','sw.js','app-install.js','espace-administrateur.html','administration.html','content-admin.js','config.js'];
 self.addEventListener('install',e=>e.waitUntil(caches.open(C).then(c=>c.addAll(A)).then(()=>self.skipWaiting())));
 self.addEventListener('activate',e=>e.waitUntil(caches.keys().then(k=>Promise.all(k.filter(x=>x!==C).map(x=>caches.delete(x)))).then(()=>self.clients.claim())));
+self.addEventListener('message',e=>{if(e.data?.type==='SKIP_WAITING')self.skipWaiting()});
 self.addEventListener('fetch',e=>{if(e.request.method!=='GET'||new URL(e.request.url).origin!==location.origin)return;e.respondWith(fetch(e.request).then(async r=>{if(e.request.mode==='navigate'&&r.ok){const t=await r.clone().text();if(t.includes('</body>')){const u=new URL('app-install.js',e.request.url).href;let x=t;if(!x.includes('app-install.js'))x=x.replace('</body>','<script src="'+u+'"></script></body>');return new Response(x,{status:r.status,statusText:r.statusText,headers:r.headers})}}const c=r.clone();caches.open(C).then(x=>x.put(e.request,c));return r}).catch(()=>caches.match(e.request).then(r=>r||caches.match('index.html'))))});
