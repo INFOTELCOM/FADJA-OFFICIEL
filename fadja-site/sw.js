@@ -1,4 +1,4 @@
-const CACHE='fadja-v20261003-3';
+const CACHE='fadja-v20261003-4';
 const CORE=['./','./index.html','./manifest.webmanifest','./config.js','./app-install.js'];
 self.addEventListener('install',event=>{self.skipWaiting();event.waitUntil(caches.open(CACHE).then(c=>c.addAll(CORE).catch(()=>{})))});
 self.addEventListener('activate',event=>{event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim()))});
