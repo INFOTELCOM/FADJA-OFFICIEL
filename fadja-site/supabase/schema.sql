@@ -210,3 +210,21 @@ create policy site_menu_admin_del on public.site_menu for delete to authenticate
 create index if not exists site_content_public_idx on public.site_content(published,sort_order);
 create index if not exists site_pages_public_idx on public.site_pages(published,sort_order);
 create index if not exists site_menu_public_idx on public.site_menu(visible,sort_order);
+
+-- Extension CMS : programmation, mise en avant, SEO et inscriptions
+alter table public.site_content add column if not exists featured boolean not null default false;
+alter table public.site_content add column if not exists category text;
+alter table public.site_content add column if not exists starts_at timestamptz;
+alter table public.site_content add column if not exists ends_at timestamptz;
+alter table public.site_content add column if not exists registration_url text;
+alter table public.site_content add column if not exists contact_text text;
+alter table public.site_content add column if not exists seo_title text;
+alter table public.site_content add column if not exists seo_description text;
+alter table public.site_content add column if not exists gallery jsonb not null default '[]'::jsonb;
+alter table public.site_pages add column if not exists seo_title text;
+alter table public.site_pages add column if not exists seo_description text;
+alter table public.site_menu add column if not exists icon text;
+alter table public.site_menu add column if not exists parent_id bigint references public.site_menu(id) on delete set null;
+create index if not exists site_content_published_order_idx on public.site_content (published, sort_order, id);
+create index if not exists site_menu_visible_order_idx on public.site_menu (visible, sort_order, id);
+create index if not exists site_menu_parent_idx on public.site_menu (parent_id);
