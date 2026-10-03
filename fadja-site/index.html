@@ -170,21 +170,21 @@ details{border:1px solid var(--line);border-radius:14px;padding:14px 18px;margin
 <script src="config.js"></script>
 <script>
 const IMG={
-logo:'assets/logo.jpg?v=20261003-4',
-g1:'assets/g1.jpg?v=20261003-4',
-g2:'assets/g2.jpg?v=20261003-4',
-g3:'assets/g3.jpg?v=20261003-4',
-f1:'assets/f1.jpg?v=20261003-4',
-m1:'assets/m1.jpg?v=20261003-4',
-g4:'assets/g4.jpg?v=20261003-4',
-itc:'assets/itc.jpg?v=20261003-4',
-py:'assets/py.jpg?v=20261003-4',
-dep:'assets/dep.jpg?v=20261003-4',
-bur:'assets/bur.jpg?v=20261003-4',
-en:'assets/en.jpg?v=20261003-4',
-emb:'assets/emb.jpg?v=20261003-4',
-vis:'assets/vis.jpg?v=20261003-4',
-auto:'assets/auto.jpg?v=20261003-4'
+logo:'https://raw.githubusercontent.com/INFOTELCOM/FADJA-OFFICIEL/main/fadja-site/assets/logo.jpg?v=20261003-5',
+g1:'https://raw.githubusercontent.com/INFOTELCOM/FADJA-OFFICIEL/main/fadja-site/assets/g1.jpg?v=20261003-5',
+g2:'https://raw.githubusercontent.com/INFOTELCOM/FADJA-OFFICIEL/main/fadja-site/assets/g2.jpg?v=20261003-5',
+g3:'https://raw.githubusercontent.com/INFOTELCOM/FADJA-OFFICIEL/main/fadja-site/assets/g3.jpg?v=20261003-5',
+f1:'https://raw.githubusercontent.com/INFOTELCOM/FADJA-OFFICIEL/main/fadja-site/assets/f1.jpg?v=20261003-5',
+m1:'https://raw.githubusercontent.com/INFOTELCOM/FADJA-OFFICIEL/main/fadja-site/assets/m1.jpg?v=20261003-5',
+g4:'https://raw.githubusercontent.com/INFOTELCOM/FADJA-OFFICIEL/main/fadja-site/assets/g4.jpg?v=20261003-5',
+itc:'https://raw.githubusercontent.com/INFOTELCOM/FADJA-OFFICIEL/main/fadja-site/assets/itc.jpg?v=20261003-5',
+py:'https://raw.githubusercontent.com/INFOTELCOM/FADJA-OFFICIEL/main/fadja-site/assets/py.jpg?v=20261003-5',
+dep:'https://raw.githubusercontent.com/INFOTELCOM/FADJA-OFFICIEL/main/fadja-site/assets/dep.jpg?v=20261003-5',
+bur:'https://raw.githubusercontent.com/INFOTELCOM/FADJA-OFFICIEL/main/fadja-site/assets/bur.jpg?v=20261003-5',
+en:'https://raw.githubusercontent.com/INFOTELCOM/FADJA-OFFICIEL/main/fadja-site/assets/en.jpg?v=20261003-5',
+emb:'https://raw.githubusercontent.com/INFOTELCOM/FADJA-OFFICIEL/main/fadja-site/assets/emb.jpg?v=20261003-5',
+vis:'https://raw.githubusercontent.com/INFOTELCOM/FADJA-OFFICIEL/main/fadja-site/assets/vis.jpg?v=20261003-5',
+auto:'https://raw.githubusercontent.com/INFOTELCOM/FADJA-OFFICIEL/main/fadja-site/assets/auto.jpg?v=20261003-5'
 };
 
 const F=[
@@ -196,7 +196,7 @@ const F=[
 {id:'bur',t:'Informatique bureautique',d:'7 au 21 septembre 2026 · Word, Excel, PowerPoint',p:0,l:'Tarif sur demande'},
 {id:'en',t:'Anglais express – communication totale',d:'Mardi, jeudi, samedi · 12h30–14h30 · 2 mois',p:70,l:'Inscription 5 $ · Participation 70 $'}];
 const $=s=>document.querySelector(s),LS={get(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
-document.querySelectorAll('[data-i]').forEach(e=>e.src=IMG[e.dataset.i]);
+document.querySelectorAll('[data-i]').forEach(e=>{const k=e.dataset.i;e.src=IMG[k];e.addEventListener('error',()=>{const p='https://raw.githubusercontent.com/INFOTELCOM/FADJA-OFFICIEL/main/fadja-site/assets/'+k+'.jpg?v=20261003-5';if(e.src!==p)e.src=p},{once:true});});
 $('#grid').innerHTML=F.map(f=>`<article class="card"><img src="${IMG[f.id]}" alt="Affiche ${f.t}" loading="lazy"><div><h3>${f.t}</h3><small>${f.d}</small><span class="pr">${f.l}</span><a class="btn" href="https://wa.me/242067702024?text=${encodeURIComponent('Bonjour FADJA, je souhaite m\'inscrire : '+f.t)}">S'inscrire</a></div></article>`).join('');
 
 /* Animations & carrousels */
