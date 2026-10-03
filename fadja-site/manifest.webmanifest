@@ -1,16 +1,54 @@
 {
-  "name":"FADJA — Centre de formation",
-  "short_name":"FADJA",
-  "description":"Application web FADJA pour les formations, l'espace membre et les services du centre.",
-  "start_url":"./index.html",
-  "scope":"./",
-  "display":"standalone",
-  "orientation":"portrait-primary",
-  "background_color":"#0A1A4F",
-  "theme_color":"#0A1A4F",
-  "categories":["education","business","productivity"],
-  "icons":[
-    {"src":"icons/icon-192.png","sizes":"192x192","type":"image/png","purpose":"any maskable"},
-    {"src":"icons/icon-512.png","sizes":"512x512","type":"image/png","purpose":"any maskable"}
+  "name": "FADJA — Application",
+  "short_name": "FADJA",
+  "description": "Application FADJA installable sur Android, iPhone/iPad et ordinateur.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#0A1A4F",
+  "theme_color": "#0A1A4F",
+  "categories": [
+    "education",
+    "business",
+    "productivity"
+  ],
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "FADJA",
+      "short_name": "FADJA",
+      "url": "./index.html",
+      "icons": [
+        {
+          "src": "icons/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Espace membre",
+      "short_name": "Membre",
+      "url": "./index.html#espace",
+      "icons": [
+        {
+          "src": "icons/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
   ]
 }
