@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FADJA — Connexion administrateur</title><meta name="theme-color" content="#0A1A4F">
+<style>
+:root{--navy:#0A1A4F;--blue:#1E4FD8;--sun:#FFC72C;--bg:#f5f7fc;--ink:#101a38;--mut:#64708f;--line:#dfe5f2}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;background:linear-gradient(135deg,#0A1A4F,#142d73);color:var(--ink);font:15px/1.6 system-ui,-apple-system,Segoe UI,sans-serif;display:grid;place-items:center;padding:24px}
+.card{width:min(440px,100%);background:#fff;border-radius:24px;padding:32px;box-shadow:0 30px 80px #0005}
+.logo{height:58px;border-radius:10px;background:#fff;display:block;margin-bottom:20px}
+h1{margin:0 0 8px;font-size:28px;color:var(--navy)}p{color:var(--mut)}label{display:block;font-weight:700;font-size:13px;margin:16px 0 6px}
+input{width:100%;padding:13px 14px;border:1px solid var(--line);border-radius:11px;font:inherit}button{width:100%;border:0;border-radius:11px;padding:13px 16px;background:var(--blue);color:#fff;font-weight:800;cursor:pointer;margin-top:18px}button:disabled{opacity:.6;cursor:wait}
+.err{min-height:24px;color:#b42318;font-size:13px;margin-top:12px}.security{margin-top:18px;padding:12px 14px;background:#f3f6fd;border-radius:11px;font-size:12px;color:var(--mut)}
+.back{display:inline-block;margin-top:18px;color:var(--blue);text-decoration:none;font-size:13px}
+</style></head><body>
+<main class="card">
+<img class="logo" src="assets/logo.jpg" alt="FADJA" onerror="this.style.display='none'">
+<h1>Administration FADJA</h1>
+<p>Connexion réservée aux comptes ayant le niveau <b>Administrateur</b>.</p>
+<form id="login">
+<label for="email">E-mail administrateur</label><input id="email" type="email" autocomplete="username" required>
+<label for="password">Mot de passe</label><input id="password" type="password" autocomplete="current-password" required>
+<div id="error" class="err"></div>
+<button id="submit" type="submit">Se connecter à l’administration</button>
+</form>
+<div class="security">Accès protégé par l’authentification FADJA. Un compte membre ou accueil ne peut pas ouvrir le tableau d’administration.</div>
+<a class="back" href="index.html">← Retour au site public</a>
+</main>
+<script src="config.js"></script>
+<script>
+const C=window.SBC||{},LS=localStorage,form=document.getElementById('login'),err=document.getElementById('error'),btn=document.getElementById('submit');
+async function auth(){const email=document.getElementById('email').value.trim(),password=document.getElementById('password').value;
+if(!C.url||!C.key)throw new Error('Configuration Supabase absente.');
+const r=await fetch(C.url+'/auth/v1/token?grant_type=password',{method:'POST',headers:{apikey:C.key,'Content-Type':'application/json'},body:JSON.stringify({email,password})});
+const j=await r.json().catch(()=>({}));if(!r.ok||!j.access_token)throw new Error(j.error_description||j.msg||j.message||'E-mail ou mot de passe incorrect.');
+const p=await fetch(C.url+'/rest/v1/profiles?id=eq.'+encodeURIComponent(j.user.id)+'&select=level,name,structure,role',{headers:{apikey:C.key,Authorization:'Bearer '+j.access_token}});
+const rows=await p.json().catch(()=>[]);if(!p.ok||rows[0]?.level!=='Administrateur'){await fetch(C.url+'/auth/v1/logout',{method:'POST',headers:{apikey:C.key,Authorization:'Bearer '+j.access_token}}).catch(()=>{});throw new Error('Ce compte n’a pas les droits administrateur.');}
+LS.setItem('fadja_tok',JSON.stringify(j));LS.setItem('fadja_me',JSON.stringify({n:rows[0].name||email,c:email,s:rows[0].structure||'',r:rows[0].role||'',a:'Administrateur'}));
+location.replace('index.html?admin=1');
+}
+form.addEventListener('submit',async e=>{e.preventDefault();err.textContent='';btn.disabled=true;btn.textContent='Vérification…';try{await auth()}catch(e){err.textContent=e.message}finally{btn.disabled=false;btn.textContent='Se connecter à l’administration'}});
+</script></body></html>
