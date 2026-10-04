@@ -305,3 +305,29 @@ create policy enroll_member_delete on public.member_enrollments for delete to au
 create index if not exists member_enrollments_member_idx on public.member_enrollments(member_id, status);
 create index if not exists member_enrollments_content_idx on public.member_enrollments(content_id, status);
 create index if not exists site_content_type_public_idx on public.site_content(type, published, starts_at);
+
+-- Sécurité : un compte non validé ne peut pas accéder aux données internes
+create or replace function private.is_active_member()
+returns boolean language sql security definer set search_path=public stable
+as $$ select coalesce((select member_status='active' from public.profiles where id=(select auth.uid())),false) $$;
+revoke all on function private.is_active_member() from public;
+grant execute on function private.is_active_member() to authenticated;
+drop policy if exists i_sel on public.inscrits;
+create policy i_sel on public.inscrits for select to authenticated using ((select private.is_active_member()) or (select private.is_admin()));
+drop policy if exists i_ins on public.inscrits;
+create policy i_ins on public.inscrits for insert to authenticated with check ((select private.my_level()) in ('Administrateur','Accueil') and ((select private.is_active_member()) or (select private.is_admin())));
+drop policy if exists i_upd on public.inscrits;
+create policy i_upd on public.inscrits for update to authenticated using ((select private.my_level()) in ('Administrateur','Accueil') and ((select private.is_active_member()) or (select private.is_admin()))) with check ((select private.my_level()) in ('Administrateur','Accueil') and ((select private.is_active_member()) or (select private.is_admin())));
+drop policy if exists a_sel on public.annonces;
+create policy a_sel on public.annonces for select to authenticated using ((select private.is_active_member()) or (select private.is_admin()));
+drop policy if exists a_ins on public.annonces;
+create policy a_ins on public.annonces for insert to authenticated with check ((select private.is_active_member()) or (select private.is_admin()));
+drop policy if exists a_upd on public.annonces;
+create policy a_upd on public.annonces for update to authenticated using (((created_by=(select auth.uid())) or (select private.is_admin())) and ((select private.is_active_member()) or (select private.is_admin()))) with check (((created_by=(select auth.uid())) or (select private.is_admin())) and ((select private.is_active_member()) or (select private.is_admin())));
+drop policy if exists a_del on public.annonces;
+create policy a_del on public.annonces for delete to authenticated using (((created_by=(select auth.uid())) or (select private.is_admin())) and ((select private.is_active_member()) or (select private.is_admin())));
+drop policy if exists l_sel on public.activite;
+create policy l_sel on public.activite for select to authenticated using ((select private.is_active_member()) or (select private.is_admin()));
+drop policy if exists l_ins on public.activite;
+create policy l_ins on public.activite for insert to authenticated with check ((select private.is_active_member()) or (select private.is_admin()));
+alter publication supabase_realtime add table public.notifications;
