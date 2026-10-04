@@ -331,3 +331,4 @@ create policy l_sel on public.activite for select to authenticated using ((selec
 drop policy if exists l_ins on public.activite;
 create policy l_ins on public.activite for insert to authenticated with check ((select private.is_active_member()) or (select private.is_admin()));
 alter publication supabase_realtime add table public.notifications;
+grant usage, select on sequence public.notifications_id_seq, public.member_enrollments_id_seq to authenticated;
