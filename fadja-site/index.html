@@ -287,7 +287,7 @@ tl(tl1);
 /* Ribbon content is static so it remains visible even if another runtime module fails. */
 const hr=document.querySelector('.hero');hr.onmousemove=e=>{const r=hr.getBoundingClientRect();hr.style.setProperty('--mx',(e.clientX-r.left)+'px');hr.style.setProperty('--my',(e.clientY-r.top)+'px');const c=car.getBoundingClientRect(),x=(e.clientX-c.left)/c.width-.5,y=(e.clientY-c.top)/c.height-.5;car.style.transform=`perspective(1000px) rotateY(${x*6}deg) rotateX(${-y*6}deg)`};hr.onmouseleave=()=>car.style.transform='';
 addEventListener('load',()=>setTimeout(()=>ld.classList.add('off'),500));setTimeout(()=>ld.classList.add('off'),2600);
-if('serviceWorker' in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('sw.js?v=20261004-4',{updateViaCache:'none'}).catch(()=>{});
+if('serviceWorker' in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('sw.js?v=20261004-5',{updateViaCache:'none'}).catch(()=>{});
 /* PWA / installation multiplateforme */
 let dp;
 addEventListener('beforeinstallprompt',e=>{e.preventDefault();dp=e});
