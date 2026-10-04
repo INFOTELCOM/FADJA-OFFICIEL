@@ -99,57 +99,6 @@ if('serviceWorker' in navigator&&location.protocol.startsWith('http'))navigator.
   });
 
   function bindCoreButtons(){
-    const bg=q('#bg'), nv=q('#nv');
-    if(bg && !bg.dataset.repairBound){
-      bg.dataset.repairBound='1';
-      bg.addEventListener('click',()=>nv&&nv.classList.toggle('open'));
-    }
-    if(nv && !nv.dataset.repairBound){
-      nv.dataset.repairBound='1';
-      nv.addEventListener('click',e=>{
-        const a=e.target.closest('a');
-        if(a && a.getAttribute('href') && a.getAttribute('href').startsWith('#')) nv.classList.remove('open');
-      });
-    }
-
-    const notif=q('#notifBtn');
-    if(notif && !notif.dataset.repairBound){
-      notif.dataset.repairBound='1';
-      notif.addEventListener('click',()=>{
-        const panel=q('#notifPanel');
-        if(panel){panel.classList.toggle('on'); if(typeof window.loadPublicNotifications==='function') window.loadPublicNotifications();}
-      });
-    }
-
-    const theme=q('#th');
-    if(theme && !theme.dataset.repairBound){
-      theme.dataset.repairBound='1';
-      theme.addEventListener('click',()=>{
-        const rt=document.documentElement;
-        const current=rt.dataset.theme;
-        const dark=current ? current==='dark' : matchMedia('(prefers-color-scheme:dark)').matches;
-        const next=dark?'light':'dark';
-        rt.dataset.theme=next;
-        try{localStorage.setItem('fadja_th',JSON.stringify(next))}catch(e){}
-      });
-    }
-
-    const installNow=q('#installNow');
-    if(installNow && !installNow.dataset.repairBound){
-      installNow.dataset.repairBound='1';
-      installNow.addEventListener('click',()=>typeof window.installFadja==='function'&&window.installFadja());
-    }
-    const installClose=q('#installClose');
-    if(installClose && !installClose.dataset.repairBound){
-      installClose.dataset.repairBound='1';
-      installClose.addEventListener('click',()=>q('#modal')?.classList.remove('on'));
-    }
-
-    qa('[data-fadja-ios]').forEach(b=>{
-      if(b.dataset.repairBound) return;
-      b.dataset.repairBound='1';
-      b.addEventListener('click',e=>{e.preventDefault();iosHelp();},{capture:true});
-    });
   }
 
   function repairLinks(){
