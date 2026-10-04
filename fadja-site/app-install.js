@@ -145,3 +145,47 @@ if('serviceWorker' in navigator&&location.protocol.startsWith('http'))navigator.
     navigator.serviceWorker.register('sw.js?v=20261004-6',{updateViaCache:'none'}).catch(()=>{});
   }
 })();
+
+
+/* FADJA partner wall + carousel recovery */
+(function(){
+  function partners(){
+    if(document.querySelector('[data-fadja-partners]')) return;
+    const footer=document.querySelector('footer');
+    if(!footer) return;
+    const s=document.createElement('section');
+    s.setAttribute('data-fadja-partners','1');
+    s.className='soft';
+    s.innerHTML='<div class="w"><div class="hd"><div><h2>Nos partenaires</h2><p class="lead">FADJA avance avec des partenaires engagés pour la formation, le numérique et l’avenir des jeunes.</p></div></div><div class="mq"><div class="tr"><a href="https://infotelcom-congo-brazzaville.netlify.app/" target="_blank" rel="noopener"><img src="assets/itc.jpg?v=20261004-7" alt="Info TELCOM"><span>Info TELCOM<small>Partenaire technologique</small></span></a><a href="#" onclick="return false"><img src="assets/fje.svg?v=20261004-7" alt="Fondation des Jeunes Engagés"><span>F.J.E<small>La Fondation des Jeunes Engagés</small></span></a><a href="#" onclick="return false"><span style="font-size:18px;font-weight:800">KEMET ACADEMY<small>Former · Sublimer · Révéler</small></span></a><a href="https://infotelcom-congo-brazzaville.netlify.app/" target="_blank" rel="noopener"><img src="assets/itc.jpg?v=20261004-7" alt="Info TELCOM"><span>Info TELCOM<small>Partenaire technologique</small></span></a><a href="#" onclick="return false"><img src="assets/fje.svg?v=20261004-7" alt="Fondation des Jeunes Engagés"><span>F.J.E<small>La Fondation des Jeunes Engagés</small></span></a><a href="#" onclick="return false"><span style="font-size:18px;font-weight:800">KEMET ACADEMY<small>Former · Sublimer · Révéler</small></span></a></div></div></div>';
+    footer.parentNode.insertBefore(s,footer);
+  }
+  function carousel(){
+    const car=document.querySelector('#car');
+    if(!car || car.dataset.fadjaCarousel) return;
+    const slides=Array.from(car.querySelectorAll('.s'));
+    if(slides.length<2) return;
+    car.dataset.fadjaCarousel='1';
+    let i=slides.findIndex(x=>x.classList.contains('on')); if(i<0)i=0;
+    const dots=Array.from(car.querySelectorAll('.dots i'));
+    function go(n){
+      i=(n+slides.length)%slides.length;
+      slides.forEach((x,k)=>x.classList.toggle('on',k===i));
+      dots.forEach((x,k)=>x.classList.toggle('on',k===i));
+      slides[i].querySelector('img')?.classList.add('fadja-img-animated');
+    }
+    car.querySelector('.ar.l')?.addEventListener('click',e=>{e.stopPropagation();go(i-1)});
+    car.querySelector('.ar.r')?.addEventListener('click',e=>{e.stopPropagation();go(i+1)});
+    dots.forEach((d,k)=>d.addEventListener('click',e=>{e.stopPropagation();go(k)}));
+    let timer=setInterval(()=>go(i+1),5000);
+    car.addEventListener('mouseenter',()=>clearInterval(timer));
+    car.addEventListener('mouseleave',()=>{clearInterval(timer);timer=setInterval(()=>go(i+1),5000)});
+    let sx=0;
+    car.addEventListener('touchstart',e=>{sx=e.changedTouches[0].clientX},{passive:true});
+    car.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)>45)go(i+(dx<0?1:-1))},{passive:true});
+  }
+  function run(){partners();carousel()}
+  run();
+  window.addEventListener('load',run,{once:true});
+  [300,1000,2500,5000].forEach(t=>setTimeout(run,t));
+  new MutationObserver(run).observe(document.body,{childList:true,subtree:true});
+})();
