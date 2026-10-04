@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800">
+<rect width="800" height="800" rx="36" fill="#fff"/>
+<circle cx="400" cy="360" r="300" fill="none" stroke="#1769d1" stroke-width="20"/>
+<path d="M130 390 C155 300 220 245 300 250 C345 253 372 277 400 315 C428 277 455 253 500 250 C580 245 645 300 670 390" fill="none" stroke="#f2b900" stroke-width="15"/>
+<path d="M145 500 C185 410 260 350 340 355 C372 357 390 374 400 400 C410 374 428 357 460 355 C540 350 615 410 655 500 C610 455 555 438 505 450 C460 461 425 487 400 520 C375 487 340 461 295 450 C245 438 190 455 145 500Z" fill="#1769d1"/>
+<circle cx="315" cy="275" r="48" fill="#1769d1"/>
+<circle cx="485" cy="275" r="48" fill="#f2b900"/>
+<path d="M275 310 Q315 355 355 310" fill="none" stroke="#fff" stroke-width="18" stroke-linecap="round"/>
+<path d="M445 310 Q485 355 525 310" fill="none" stroke="#fff" stroke-width="18" stroke-linecap="round"/>
+<path d="M365 165 L400 105 L435 165" fill="#f2b900"/>
+<text x="400" y="575" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="118" font-weight="900" fill="#1769d1">F.J.E</text>
+<path d="M180 605 Q400 550 620 605" fill="none" stroke="#f2b900" stroke-width="10"/>
+<text x="400" y="655" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="38" font-weight="700" fill="#163f91">La Fondation des</text>
+<text x="400" y="700" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="38" font-weight="700" fill="#163f91">Jeunes Engagés</text>
+<text x="400" y="755" text-anchor="middle" font-family="Georgia,serif" font-size="25" font-style="italic" fill="#1769d1">Ensemble pour un avenir meilleur pour nos enfants</text>
+</svg>
