@@ -19,6 +19,22 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/configure-pages@v5
+      - name: Enhance FADJA activity image for web
+        run: |
+          python -m pip install --disable-pip-version-check pillow
+          python - <<'PY'
+          from PIL import Image, ImageEnhance, ImageFilter
+          from pathlib import Path
+          p = Path("fadja-site/assets/fadja-services.jpg")
+          if p.exists():
+              im = Image.open(p).convert("RGB")
+              # High-quality 3x upscale + controlled sharpening for the activity card.
+              im = im.resize((im.width * 3, im.height * 3), Image.Resampling.LANCZOS)
+              im = ImageEnhance.Contrast(im).enhance(1.04)
+              im = ImageEnhance.Sharpness(im).enhance(2.2)
+              im = im.filter(ImageFilter.UnsharpMask(radius=1.4, percent=175, threshold=2))
+              im.save(p, "JPEG", quality=96, optimize=True, subsampling=0)
+          PY
       - uses: actions/upload-pages-artifact@v3
         with:
           path: fadja-site
