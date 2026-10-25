@@ -38,7 +38,7 @@ async function dashboard(){
   if(!(await isAdmin()))throw new Error('Accès administrateur requis.');
   const results=await Promise.allSettled([
    api('/rest/v1/profiles?select=id,name,structure,role,level,created_at&order=created_at.desc'),
-   api('/rest/v1/inscrits?select=id,data,updated_at&order=updated_at.desc&limit=100'),
+   api('/rest/v1/inscrits?select=*&limit=100'),
    api('/rest/v1/messages?select=id,name,phone,formation,message,created_at&order=created_at.desc&limit=100'),
    api('/rest/v1/activite?select=id,data,updated_at&order=updated_at.desc&limit=20'),
    api('/rest/v1/site_content?select=id,title,type,published,featured,created_at&order=created_at.desc&limit=200'),
@@ -46,6 +46,7 @@ async function dashboard(){
   ]);
   const data=results.map(r=>r.status==='fulfilled'?r.value:[]);
   const [u,i,m,a,c,members]=data;
+  i.sort((x,y)=>new Date(y.updated_at||y.created_at||0)-new Date(x.updated_at||x.created_at||0));
   const failures=results.map((r,n)=>r.status==='rejected'?['comptes','inscrits','messages','activité','contenus','adhésions'][n]+': '+r.reason.message:null).filter(Boolean);
   const pending=members.filter(x=>x.status==='pending').length;
   const published=c.filter(x=>x.published).length;
