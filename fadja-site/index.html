@@ -411,10 +411,10 @@ $('#installNow')?.addEventListener('click',installFadja);
 $('#installClose')?.addEventListener('click',()=>modal.classList.remove('on'));
 document.querySelectorAll('[data-install-app]').forEach(b=>b.addEventListener('click',installFadja));
 /* Mode cloud (Supabase) : actif seulement si config.js renseigne url + clé */
-const SB=window.SBC||{url:'',key:''},CLOUD=!!(SB.url&&SB.key),SHARED=['fadja_ins','fadja_ann','fadja_log'];let TOK=LS.get('fadja_tok',null),AM='in';
-const au=(p,b)=>fetch(SB.url+'/auth/v1/'+p,{method:'POST',headers:{apikey:SB.key,'Content-Type':'application/json'},body:JSON.stringify(b)}).then(r=>r.json());
+window.FADJA_SB_CONFIG=window.SBC||{url:'',key:''};const CLOUD=!!(window.FADJA_SB_CONFIG.url&&window.FADJA_SB_CONFIG.key),SHARED=['fadja_ins','fadja_ann','fadja_log'];let TOK=LS.get('fadja_tok',null),AM='in';
+const au=(p,b)=>fetch(window.FADJA_SB_CONFIG.url+'/auth/v1/'+p,{method:'POST',headers:{apikey:window.FADJA_SB_CONFIG.key,'Content-Type':'application/json'},body:JSON.stringify(b)}).then(r=>r.json());
 async function refresh(){const j=await au('token?grant_type=refresh_token',{refresh_token:TOK.refresh_token});if(j.access_token){TOK=j;LS.set('fadja_tok',j)}else logout()}
-async function sb(p,o={},retry=1){const r=await fetch(SB.url+p,{...o,headers:{apikey:SB.key,Authorization:'Bearer '+(TOK?TOK.access_token:SB.key),'Content-Type':'application/json',...(o.headers||{})}});if(r.status==401&&TOK&&retry){await refresh();return sb(p,o,0)}const j=await r.json().catch(()=>({}));if(!r.ok)throw new Error(j.msg||j.message||'Erreur '+r.status);return j}
+async function sb(p,o={},retry=1){const r=await fetch(window.FADJA_SB_CONFIG.url+p,{...o,headers:{apikey:window.FADJA_SB_CONFIG.key,Authorization:'Bearer '+(TOK?TOK.access_token:window.FADJA_SB_CONFIG.key),'Content-Type':'application/json',...(o.headers||{})}});if(r.status==401&&TOK&&retry){await refresh();return sb(p,o,0)}const j=await r.json().catch(()=>({}));if(!r.ok)throw new Error(j.msg||j.message||'Erreur '+r.status);return j}
 const TB={fadja_ins:'inscrits',fadja_ann:'annonces',fadja_log:'activite'},_ls=LS.set;
 LS.set=(k,v)=>{const o=LS.get(k,[]);_ls(k,v);if(CLOUD&&TOK&&TB[k])sync(k,o,v)};
 async function sync(k,o,n){const om=new Map(o.map(x=>[x.id,JSON.stringify(x)])),up=n.filter(x=>om.get(x.id)!==JSON.stringify(x)),del=o.filter(x=>!n.some(y=>y.id==x.id)).map(x=>x.id),u='/rest/v1/'+TB[k];try{if(up.length)await sb(u+'?on_conflict=id',{method:'POST',headers:{Prefer:'resolution=merge-duplicates,return=minimal'},body:JSON.stringify(up.map(x=>({id:x.id,data:x})))});if(del.length)await sb(u+'?id=in.('+del.join(',')+')',{method:'DELETE'})}catch(e){toast('Action refusée : droits insuffisants');pull()}}
