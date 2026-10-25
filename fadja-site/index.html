@@ -391,7 +391,7 @@ const FALLBACK_EVENTS=[['bur','2026-09-07','2026-09-21'],['auto','2026-09-27','2
 rb.innerHTML=[['py','Python, Tkinter & SQLite3','py'],['emb','Arduino & ESP32','emb'],['vis','Vision par ordinateur','vis'],['en','Anglais express','en'],['bur','Bureautique','bur'],['auto','Auto-école','auto'],['att','Attestation officielle','logo'],['pr','100 % pratique','f1']].map(w=>'<span class="rib-item"><img src="'+(IMG[w[2]]||IMG.logo)+'" alt=""><b>'+w[1]+'</b></span><span class="rib-sep">◆</span>').join('').repeat(3);
 const hr=document.querySelector('.hero');hr.onmousemove=e=>{const r=hr.getBoundingClientRect();hr.style.setProperty('--mx',(e.clientX-r.left)+'px');hr.style.setProperty('--my',(e.clientY-r.top)+'px');const c=car.getBoundingClientRect(),x=(e.clientX-c.left)/c.width-.5,y=(e.clientY-c.top)/c.height-.5;car.style.transform=`perspective(1000px) rotateY(${x*6}deg) rotateX(${-y*6}deg)`};hr.onmouseleave=()=>car.style.transform='';
 addEventListener('load',()=>setTimeout(()=>ld.classList.add('off'),500));setTimeout(()=>ld.classList.add('off'),2600);
-if('serviceWorker' in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('sw.js?v=20261007.2',{updateViaCache:'none'}).then(r=>r.update()).catch(()=>{});
+if('serviceWorker' in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('sw.js?v=20261025.1',{updateViaCache:'none'}).then(r=>r.update()).catch(()=>{});
 /* PWA / installation multiplateforme */
 let dp;
 addEventListener('beforeinstallprompt',e=>{e.preventDefault();dp=e});
