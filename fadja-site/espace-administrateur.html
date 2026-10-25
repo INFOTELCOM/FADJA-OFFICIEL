@@ -26,6 +26,31 @@ aside button:hover{background:#1B2F7A;color:#fff}
 main{padding:28px;min-width:0}.top{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:20px}
 .exit{width:auto;margin:0;background:transparent;border:1px solid #ffffff44;padding:9px 12px}
 @media(max-width:820px){.shell{grid-template-columns:1fr}aside{position:static;height:auto;flex-direction:row;flex-wrap:wrap}.brand{width:100%}main{padding:18px}}
+/* FADJA Admin SaaS polish */
+body{background:radial-gradient(ellipse at 85% 0%,#e7edff 0,transparent 36%),var(--bg)}
+.shell{grid-template-columns:260px minmax(0,1fr);gap:0}
+aside{padding:26px 16px;background:linear-gradient(180deg,#081640 0%,#10266b 100%);box-shadow:12px 0 34px #0a1a4f12;border-right:1px solid #ffffff12;z-index:2}
+aside .brand{font-size:18px;letter-spacing:.3px;padding:12px 14px 28px;display:flex;align-items:center;gap:10px}
+aside .brand:before{content:"F";display:grid;place-items:center;width:38px;height:38px;border-radius:12px;background:linear-gradient(135deg,#ffc72c,#ffdf77);color:#0a1a4f;font-weight:900;box-shadow:0 8px 24px #ffc72c30}
+aside button{border:1px solid transparent;border-radius:12px;padding:12px 14px;color:#c9d5ff;transition:background .18s ease,color .18s ease,transform .18s ease}
+aside button:hover{background:#ffffff12;color:#fff;transform:translateX(2px)}
+aside button:focus-visible{outline:2px solid #ffc72c;outline-offset:2px}
+main{padding:clamp(20px,3vw,42px);max-width:1600px;width:100%;margin:0 auto}
+main h1,main h2{letter-spacing:-.035em}
+.cmsbox,.panel,.stat{border-radius:18px!important;box-shadow:0 10px 32px #0a1a4f08;transition:box-shadow .2s ease,transform .2s ease}
+.cmsbox:hover,.stat:hover{box-shadow:0 16px 40px #0a1a4f12}
+.cmsbox{padding:24px!important;background:color-mix(in srgb,var(--bg) 94%,#eaf0ff)}
+.cmsitem{background:var(--bg);border-radius:14px!important;padding:18px!important}
+.cmsactions button,.cms button,.cms .btn{border-radius:11px;transition:transform .15s ease,box-shadow .15s ease}
+.cmsactions button:hover,.cms button:hover,.cms .btn:hover{transform:translateY(-1px);box-shadow:0 8px 18px #1e4fd822}
+.cms input,.cms textarea,.cms select{background:var(--bg);min-height:44px}
+table{border-collapse:separate;border-spacing:0;width:100%}
+th{background:#f0f4ff;color:#34446f;font-size:11px;text-transform:uppercase;letter-spacing:.06em}
+th:first-child{border-radius:10px 0 0 10px}th:last-child{border-radius:0 10px 10px 0}
+td,th{padding:13px 12px}
+tbody tr:hover td{background:#f8faff}
+@media(max-width:820px){.shell{grid-template-columns:1fr}aside{position:sticky;top:0;height:auto;flex-direction:row;flex-wrap:wrap;padding:12px;backdrop-filter:blur(12px)}aside .brand{width:100%;padding:6px 8px 12px}aside button{flex:1 1 auto;text-align:center;padding:10px}main{padding:18px}.cmsbox{padding:16px!important}}
+
 </style>
 </head>
 <body>
