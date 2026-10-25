@@ -319,6 +319,108 @@ main:before{
   .cmsbox,.dash-panel,.dash-stat,.panel,.stat{transform:none!important}
 }
 
+
+
+/* FADJA NEBULA X — édition expérimentale, couche CSS uniquement */
+:root{--fx-cyan:#6cf4ff;--fx-purple:#a995ff;--fx-hot:#ff91dc;--fx-lime:#e7ff9a}
+body{
+ background:
+  radial-gradient(ellipse at 92% 8%,rgba(113,128,255,.22),transparent 25%),
+  radial-gradient(ellipse at 58% 110%,rgba(108,244,255,.12),transparent 32%),
+  radial-gradient(ellipse at 0% 55%,rgba(169,149,255,.13),transparent 28%),
+  #f3f5ff;
+}
+.shell{position:relative}
+.shell:after{
+ content:"";position:fixed;z-index:-1;right:-90px;top:35%;width:230px;height:230px;border-radius:50%;
+ border:1px solid rgba(86,111,225,.09);box-shadow:0 0 0 22px rgba(86,111,225,.025),0 0 0 54px rgba(86,111,225,.018);
+ pointer-events:none;
+}
+aside{
+ background:
+  radial-gradient(ellipse at 100% 4%,rgba(108,244,255,.18),transparent 28%),
+  radial-gradient(ellipse at 8% 52%,rgba(169,149,255,.14),transparent 30%),
+  linear-gradient(155deg,#03091d,#09163c 47%,#17245f 78%,#0b1640);
+}
+aside .brand:before{
+ background:conic-gradient(from 215deg,#fff4a8,#ffc83d,#ff9e6b,#fff4a8);
+ animation:fx-emblem 12s linear infinite;
+}
+@keyframes fx-emblem{to{filter:hue-rotate(18deg)}}
+aside button{isolation:isolate}
+aside button:focus-visible{outline:2px solid var(--fx-cyan);outline-offset:3px}
+aside button:hover{
+ background:linear-gradient(105deg,rgba(108,244,255,.14),rgba(169,149,255,.13),rgba(255,145,220,.06));
+ border-color:rgba(108,244,255,.19);
+ box-shadow:0 8px 28px rgba(1,8,28,.19),inset 0 1px rgba(255,255,255,.08);
+}
+aside button#dashBtn{
+ background:linear-gradient(110deg,rgba(108,244,255,.17),rgba(169,149,255,.16),rgba(255,145,220,.08));
+ border-color:rgba(108,244,255,.28);
+ box-shadow:inset 3px 0 var(--fx-cyan),0 8px 28px rgba(0,0,0,.14);
+}
+aside button#dashBtn:before{background:var(--fx-cyan);box-shadow:0 0 0 4px #6cf4ff16,0 0 18px #6cf4ff8a}
+.top{
+ border:1px solid rgba(255,255,255,.9);
+ background:linear-gradient(115deg,rgba(255,255,255,.93),rgba(241,243,255,.72));
+ box-shadow:0 20px 58px rgba(23,40,105,.075),inset 0 1px 0 #fff;
+}
+.top:after{
+ left:24px;right:24px;height:2px;
+ background:linear-gradient(90deg,transparent,var(--fx-cyan),var(--fx-purple),var(--fx-hot),transparent);
+ opacity:.8;
+}
+.top:before{background:#7cf5c1;box-shadow:0 0 0 5px #7cf5c124,0 0 22px #7cf5c1}
+.cmsbox,.dash-panel,.dash-stat,.panel,.stat{
+ border-color:rgba(211,221,250,.95)!important;
+ box-shadow:0 16px 45px rgba(17,35,95,.065),inset 0 1px 0 #fff!important;
+}
+.cmsbox:after,.dash-panel:after,.dash-stat:after{
+ height:2px;opacity:.7;
+ background:linear-gradient(90deg,transparent,var(--fx-cyan),var(--fx-purple),transparent);
+}
+.cmsbox:hover,.dash-panel:hover,.dash-stat:hover,.panel:hover,.stat:hover{
+ border-color:rgba(141,161,255,.8)!important;
+ box-shadow:0 25px 62px rgba(35,54,135,.12),inset 0 1px 0 #fff!important;
+}
+#adminMount button,#adminMount .btn{isolation:isolate}
+#adminMount button:after,#adminMount .btn:after{
+ content:"";position:absolute;inset:0;pointer-events:none;border-radius:inherit;
+ background:linear-gradient(115deg,transparent 20%,rgba(255,255,255,.2) 48%,transparent 72%);
+ transform:translateX(-130%);transition:transform .55s ease;z-index:-1;
+}
+#adminMount button:hover:after,#adminMount .btn:hover:after{transform:translateX(130%)}
+#adminMount th{background:linear-gradient(100deg,#eaf5ff,#f0edff,#fff0fa)}
+#adminMount td{transition:background .16s ease}
+#adminMount tbody tr:hover td{background:linear-gradient(100deg,#f0fbff,#f5f2ff,#fff8fd)}
+#login{
+ background:
+  radial-gradient(ellipse at 12% 18%,rgba(108,244,255,.20),transparent 27%),
+  radial-gradient(ellipse at 87% 23%,rgba(255,145,220,.13),transparent 25%),
+  radial-gradient(ellipse at 73% 95%,rgba(169,149,255,.21),transparent 30%),
+  linear-gradient(145deg,#020615,#081332 50%,#11194c);
+}
+#login:before,#login:after{
+ border-color:rgba(108,244,255,.17);
+ box-shadow:0 0 0 28px rgba(108,244,255,.025),0 0 0 64px rgba(169,149,255,.022),0 0 0 108px rgba(255,145,220,.014);
+}
+#login:after{border-color:rgba(255,145,220,.17)}
+#login .card{
+ border-color:rgba(255,255,255,.84);
+ box-shadow:0 40px 120px rgba(0,0,0,.48),0 0 0 1px rgba(108,244,255,.10),inset 0 1px 0 #fff;
+}
+#login .card:before{height:5px;background:linear-gradient(90deg,var(--fx-cyan),#7b8cff,var(--fx-purple),var(--fx-hot),#ffd86b)}
+#login .logo{animation:fx-float 5s ease-in-out infinite}
+@keyframes fx-float{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-3px) rotate(-2deg)}}
+#login #submit{
+ background:linear-gradient(105deg,#214bd5,#5168f4 48%,#8154d9);
+ box-shadow:0 13px 30px rgba(64,83,224,.3),inset 0 1px 0 rgba(255,255,255,.28);
+}
+#login #submit:hover{box-shadow:0 16px 36px rgba(64,83,224,.38),inset 0 1px 0 rgba(255,255,255,.3)}
+#login .note{background:linear-gradient(110deg,#f5fbff,#f7f3ff);border-color:#e4e8ff}
+@media(max-width:900px){.shell:after{right:-130px;width:190px;height:190px}}
+@media(prefers-reduced-motion:reduce){#login .logo,aside .brand:before{animation:none!important}#adminMount button:after,#adminMount .btn:after{display:none}}
+
 </style>
 </head>
 <body data-admin-shell="1">
