@@ -112,7 +112,7 @@ tbody tr:hover td{background:#f7f9ff}
 </div></div>
 
 <div id="app"><div class="shell">
-  <aside><div class="brand">FADJA · ADMIN</div><button id="dashBtn">Tableau de bord</button><button id="cmsBtn">Contenu du site</button><button id="membersBtn">Demandes d’adhésion</button><button id="messagesBtn">Messages reçus</button><button id="logoutBtn" class="exit">Déconnexion</button></aside>
+  <aside><div class="brand">FADJA · ADMIN</div><button id="dashBtn">Tableau de bord</button><button id="cmsBtn">Contenu du site</button><button id="membersBtn">Demandes d’adhésion</button><button id="messagesBtn">Messages reçus</button><button id="certsBtn">Certificats</button><button id="logoutBtn" class="exit">Déconnexion</button></aside>
   <main><div class="top"><div><h1 style="margin:0">Administration FADJA</h1><p class="mut" style="margin:4px 0 0">Espace privé de gestion.</p></div></div><div id="adminMount"></div></main>
 </div></div>
 
@@ -124,7 +124,7 @@ const api=async(path,opt={})=>{const tok=JSON.parse(localStorage.getItem('fadja_
 async function check(){const t=JSON.parse(localStorage.getItem('fadja_tok')||'null');if(!t?.access_token)return false;try{const p=await api('/rest/v1/profiles?id=eq.'+encodeURIComponent(t.user.id)+'&select=level');return p?.[0]?.level==='Administrateur'}catch(e){return false}}
 async function loadAdmin(){if(!(await check())){localStorage.removeItem('fadja_tok');localStorage.removeItem('fadja_me');$('login').style.display='grid';$('app').style.display='none';return}
 $('login').style.display='none';$('app').style.display='block';
-if(!window.FADJA_ADMIN){const s=document.createElement('script');s.src='content-admin.js?v=20261025.3';s.onload=()=>openDash();s.onerror=()=>{$('adminMount').innerHTML='<div class="cmsbox cmsdanger">Chargement de l’administration impossible.</div>'};document.body.appendChild(s)}else openDash()}
+if(!window.FADJA_ADMIN){const s=document.createElement('script');s.src='content-admin.js?v=20261025.4';s.onload=()=>openDash();s.onerror=()=>{$('adminMount').innerHTML='<div class="cmsbox cmsdanger">Chargement de l’administration impossible.</div>'};document.body.appendChild(s)}else openDash()}
 function openDash(){setTimeout(()=>window.FADJA_ADMIN?.dashboard?.(),80)}
 $('loginForm').addEventListener('submit',async e=>{e.preventDefault();$('error').textContent='';$('submit').disabled=true;try{if(!C.url||!C.key)throw new Error('Configuration Supabase absente.');const j=await au('token?grant_type=password',{email:$('email').value.trim(),password:$('password').value});if(!j.access_token)throw new Error('E-mail ou mot de passe incorrect.');localStorage.setItem('fadja_tok',JSON.stringify(j));const p=(await api('/rest/v1/profiles?id=eq.'+encodeURIComponent(j.user.id)+'&select=*'))[0];if(!p||p.level!=='Administrateur'){localStorage.removeItem('fadja_tok');throw new Error('Ce compte n’a pas les droits administrateur.')}localStorage.setItem('fadja_me',JSON.stringify({n:p.name||j.user.email,c:j.user.email,s:p.structure||'',r:p.role||'',a:p.level}));await loadAdmin()}catch(err){$('error').textContent=err.message||'Connexion impossible.'}finally{$('submit').disabled=false}});
 $('logoutBtn').onclick=async()=>{try{await au('logout',{ })}catch(e){}localStorage.removeItem('fadja_tok');localStorage.removeItem('fadja_me');location.reload()};
@@ -132,6 +132,7 @@ $('dashBtn').onclick=openDash;
 $('cmsBtn').onclick=()=>window.FADJA_ADMIN?.openCMS?.();
 $('membersBtn').onclick=()=>window.FADJA_ADMIN?.membershipAdmin?.();
 $('messagesBtn').onclick=()=>window.FADJA_ADMIN?.messagesAdmin?.();
+$('certsBtn').onclick=()=>window.FADJA_ADMIN?.openCertAdmin?.();
 loadAdmin();
 })();
 </script>
